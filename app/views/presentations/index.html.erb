@@ -1,0 +1,59 @@
+<!-- app/views/presentations/index.html.erb -->
+<%# Author: Andy Clemens %>
+
+<% if current_user.role == 'student' %>
+  <%# Student view %>
+
+  <h1 class="text-center mt-4 mb-4">My Presentations</h1>
+
+  <% if @presentations.empty? %>
+    <div class="text-center">
+      <p>You do not currently have any presentations.</p>
+    </div>
+  <% end %>
+<% else %>
+  <%# Teacher and TA view %>
+
+  <h1 class="text-center mt-4 mb-4">Presentations</h1>
+
+  <% if current_user.role == 'teacher' %>
+    <!-- Button for teacher to create a presentation -->
+    <div class="text-center mb-4">
+      <%= link_to 'Create New Presentation', create_presentation_path, class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+
+  <% if @presentations.empty? %>
+    <div class="text-center">
+      <p>There are no presentations.</p>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Loop through each presentation -->
+<% @presentations.each do |presentation| %>
+  <%# Get the users enrolled in the presentation %>
+  <% pres_user_ids = @enrollments.where(presentation_id: presentation.id).pluck(:user_id) %>
+
+  <%# Only show the presentation if the current user is a teacher or TA or is enrolled in it %>
+  <% if (pres_user_ids.include?(current_user.id) || current_user.role != 'student') %>
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2 class="card-title"><%= presentation.title %></h2>
+
+        <!-- List each user in the presentation -->
+        <% pres_users = @users.where(id: pres_user_ids).pluck(:username) %>  
+        <% pres_users.each do |user| %>
+          <p class="card-text"><strong><%= user %></strong></p>
+        <% end %>
+
+        <!-- Link to evaluations for each presentation -->
+        <% if @evaluations.where(presentation_id: presentation.id).empty? %>
+          <p class="card-text">No evaluations submitted.</p>
+        <% else %>
+          <%= link_to pluralize(@evaluations.where(presentation_id: presentation.id).length, 'Evaluation'), presentation_path(presentation), class: 'btn btn-primary' %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

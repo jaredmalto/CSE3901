@@ -1,0 +1,32 @@
+<!-- app/views/scores/index.html.erb -->
+<%# Author: Andy Clemens %>
+<h1>All Evaluations</h1>
+
+<!-- Table of evaluations the user has given -->
+<table>
+  <thead>
+    <tr>
+      <th>Presentation</th>
+      <th>Organization</th>
+      <th>Content</th>
+      <th>Visuals</th>
+      <th>Delivery</th>
+      <th>Comment</th>
+      <th>Evaluated</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- List each evaluation in the table -->
+    <% @evaluations.each do |score| %>
+      <tr>
+        <td><%= @presentations.find(score.presentation_id).title %></td>
+        <td><%= score.organization_score %></td>
+        <td><%= score.content_score %></td>
+        <td><%= score.visuals_score %></td>
+        <td><%= score.delivery_score %></td>
+        <td><%= score.comment.present? ? score.comment : 'No comment' %></td>
+        <td><%= score.updated_at.getlocal.strftime('%a %b %1e %l:%M %p') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

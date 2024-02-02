@@ -1,0 +1,12 @@
+<%# Page to show on the home tab %>
+<%# Author: Mikkel Baterina%>
+<h1 class="center">Welcome</h1>
+<p>Send and receive feedback on classroom presentations all on one website!</p>
+<ul>
+  <li>Presentations Tab has <%= current_user.role == 'student' ? 'feedback for your presentations' : 'all presentations for the class' %><%= ' and lets you create new presentations' if current_user.role == 'teacher' %></li>
+  <% if current_user.role == 'teacher' %>
+    <li>Manage Class Tab allows you to add and remove students from the class</li>
+  <% else %>
+    <li>Not Evaluated Tab has all presentations that you have not evaluated yet</li>
+  <% end %>
+</ul>

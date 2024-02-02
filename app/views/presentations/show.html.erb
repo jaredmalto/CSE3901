@@ -1,0 +1,45 @@
+<!-- app/views/presentations/show.html.erb -->
+<%# Author: Andy Clemens %>
+
+<h1>Evaluations for <%= @presentation.title %></h1>
+
+<%# Show presentation description if there is one %>
+<% if @presentation.description.present? %>
+  <p><%= @presentation.description %></p>
+<% end %>
+
+<!-- Table of evaluations -->
+<table>
+  <thead>
+    <tr>
+	  <% if current_user.role != 'student' %>
+      <%# Only show evaluator to teacher or TA %>
+	  	<th>Evaluator</th>
+	  <% end %>
+      <th>Organization</th>
+      <th>Content</th>
+      <th>Visuals</th>
+      <th>Delivery</th>
+      <th>Comment</th>
+      <th>Evaluated</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- List each evaluation in the table -->
+    <% @evaluations.each do |evaluation| %>
+      <tr>
+		    <% if current_user.role != 'student' %>
+          <%# Only show evaluator to teacher or TA %>
+		      <td><%= @users.find(evaluation.evaluator_id).username %></td>
+		    <% end %>
+
+        <td><%= evaluation.organization_score %></td>
+        <td><%= evaluation.content_score %></td>
+        <td><%= evaluation.visuals_score %></td>
+        <td><%= evaluation.delivery_score %></td>
+        <td><%= evaluation.comment.present? ? evaluation.comment : 'No comment' %></td>
+        <td><%= evaluation.updated_at.getlocal.strftime('%a %b %1e %l:%M %p') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

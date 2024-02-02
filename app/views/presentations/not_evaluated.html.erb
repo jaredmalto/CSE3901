@@ -1,0 +1,16 @@
+<!-- app/views/presentations/not_evaluated.html.erb -->
+
+<h1 class="center">Presentations Not Yet Evaluated</h1>
+
+<% if @presentations_not_evaluated.empty? %>
+  <p>There are no presentations that have not been evaluated.</p>
+<% end %>
+
+<!-- Loop through each presentation that hasn't been evaluated -->
+<% @presentations_not_evaluated.each do |presentation| %>
+  <h2><%= presentation.title %></h2>
+  <small><%= presentation.description %></small><br/>
+
+  <!-- Link to evaluation page for presentation -->
+  <%= link_to 'Evaluate Presentation', new_presentation_score_path(presentation)  %>
+<% end %>

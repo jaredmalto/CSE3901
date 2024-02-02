@@ -1,0 +1,29 @@
+<!-- Form to get input for the new presentation -->
+<%= form_for @presentation, url: create_presentation_path, html: { class: "form-style" }, method: :post do |f| %>
+  <div><span class="required">*</span> indicates required field</div>
+  <div class="mb-3">
+    <%= f.label :title, class: "form-label" %><span class="required">*</span>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :description, class: "form-label" %>
+    <%= f.text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :date, class: "form-label" %><span class="required">*</span>
+    <%= f.date_field :date, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :user_ids, 'Select Users', class: "form-label" %><span class="required">*</span>
+    <%= f.collection_select :user_ids, User.all, :id, :username, { }, { class: "form-select", multiple: true } %>
+  </div>
+  
+  <div class="mb-3">
+    <%= f.submit 'Create Presentation', class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+

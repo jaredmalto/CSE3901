@@ -1,0 +1,26 @@
+<!-- Form to get input for the new user to be added -->
+<%= form_with(model: @user, url: manage_add_user_path, method: :post, class: "form-style") do |form| %>
+  <div><span class="required">*</span> indicates required field</div>
+  
+  <div class="mb-3">
+    <%= form.label :username, class: "form-label" %><span class="required">*</span>
+    <%= form.text_field :username, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :email, class: "form-label" %><span class="required">*</span>
+    <%= form.email_field :email, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :password, class: "form-label" %><span class="required">*</span>
+    <%= form.password_field :password, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :role, class: "form-label" %><span class="required">*</span>
+    <%= form.select :role, {'Student' => 'student', 'TA' => 'ta', 'Teacher' => 'teacher'}, { include_blank: "Select Role"}, class: "form-select" %>
+  </div>
+
+  <%= form.submit 'Add User', class: "btn btn-primary" %>
+<% end %>

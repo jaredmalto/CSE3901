@@ -1,0 +1,63 @@
+<!-- app/views/scores/new.html.erb -->
+
+<h1>Set Scores for <%= @presentation.title %></h1>
+
+<%# Show presentation description if there is one %>
+<% if @presentation.description.present? %>
+  <p><%= @presentation.description %></p>
+<% end %>
+
+<!-- Form for submitting evaluation -->
+<%= form_with(model: @evaluation, url: presentation_scores_path(@presentation)) do |form| %>
+  <% if @evaluation.errors.any? %>
+
+    <!-- List errors with submitting form if there are any -->
+    <div id="error_explanation">
+      <h2><%= pluralize(@evaluation.errors.count, "error") %> prohibited this evaluation from being saved:</h2>
+
+      <ul>
+      <% @evaluation.errors.full_messages.each do |message| %>
+        <!-- Error message -->
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div><span class="required">*</span> indicates required field</div>
+
+  <!-- Field for entering organization score -->
+  <div class="field">
+    <%= form.label :organization_score %><span class="required">*</span>
+    <%= form.number_field :organization_score, in: -14..14, step: 1%>
+  </div>
+
+  <!-- Field for entering content score -->
+  <div class="field">
+    <%= form.label :content_score %><span class="required">*</span>
+    <%= form.number_field :content_score, in: -8..8, step: 1 %>
+  </div>
+
+  <!-- Field for entering visuals score -->
+  <div class="field">
+    <%= form.label :visuals_score %><span class="required">*</span>
+    <%= form.number_field :visuals_score, in: -10..10, step: 1 %>
+  </div>
+
+  <!-- Field for entering delivery score -->
+  <div class="field">
+    <%= form.label :delivery_score %><span class="required">*</span>
+    <%= form.number_field :delivery_score, in: -6..6, step: 1 %>
+  </div>
+
+  <!-- Field for entering optional comment -->
+  <div class="field">
+    <%= form.label :comment %>
+    <%= form.text_area :comment %>
+  </div>
+
+  <!-- Button for submitting form -->
+  <div class="actions">
+    <%= form.submit 'Submit Scores' %>
+  </div>
+<% end %>
