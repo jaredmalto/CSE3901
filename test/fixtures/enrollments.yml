@@ -1,0 +1,12 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+enrollment_one:
+  user: user_one
+  presentation: presentation_one 
+  created_at: '2023-12-06 18:19:12'
+  updated_at: '2023-12-06 18:19:12'
+
+enrollment_two:
+  user: user_two
+  presentation: presentation_two
+  created_at: '2023-12-06 18:19:12'
+  updated_at: '2023-12-06 18:19:12'

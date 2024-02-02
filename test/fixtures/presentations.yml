@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+presentation_one:
+  title: Presentation 1
+  description: Description for Presentation 1
+  date: '2023-12-06'
+  created_at: '2023-12-06 18:19:12'
+  updated_at: '2023-12-06 18:19:12'
+
+presentation_two:
+  title: Presentation 2
+  description: Description for Presentation 2
+  date: '2023-12-06'
+  created_at: '2023-12-06 18:19:12'
+  updated_at: '2023-12-06 18:19:12'
